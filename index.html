@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual do Portal do Vendedor</title>
+  <meta name="description" content="Guia rápido para consultar pedidos e baixar DANFE, boleto e XML da NF-e no Portal do Vendedor." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1b33;
+      --card:#0f203f;
+      --text:#eaf0ff;
+      --muted:#b8c6f0;
+      --line:rgba(255,255,255,.08);
+      --accent:#6ea8ff;
+      --ok:#35d39a;
+      --warn:#ffcc66;
+      --danger:#ff6b6b;
+      --shadow: 0 10px 25px rgba(0,0,0,.25);
+      --radius: 14px;
+      --radius2: 18px;
+      --maxw: 1200px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(110,168,255,.18), transparent 60%),
+                  radial-gradient(1000px 700px at 80% 10%, rgba(53,211,154,.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height:1.55;
+    }
+
+    a{ color: var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 14px 16px;
+      background: rgba(15,27,51,.75);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width: 240px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(110,168,255,.95), rgba(53,211,154,.9));
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+    }
+    .brand h1{
+      font-size: 14px; margin:0;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:0; font-size: 12px; color: var(--muted);
+    }
+
+    .actions{
+      display:flex; align-items:center; gap:10px;
+      width: 100%;
+      justify-content:flex-end;
+    }
+
+    .search{
+      flex: 1;
+      max-width: 520px;
+      position: relative;
+    }
+    .search input{
+      width:100%;
+      padding: 12px 12px 12px 38px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(6,10,18,.55);
+      color: var(--text);
+      outline:none;
+    }
+    .search input::placeholder{ color: rgba(184,198,240,.7); }
+    .search .icon{
+      position:absolute; left: 12px; top: 50%;
+      transform: translateY(-50%);
+      opacity:.8; font-size: 14px;
+    }
+
+    .btn{
+      border: 1px solid var(--line);
+      background: rgba(6,10,18,.45);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: transform .08s ease, background .2s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ background: rgba(6,10,18,.7); }
+    .btn:active{ transform: scale(.98); }
+
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+
+    .sidebar{
+      position: sticky;
+      top: 86px;
+    }
+
+    .panel{
+      background: rgba(15,27,51,.75);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .panel .hd{
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel .hd strong{ font-size: 13px; }
+    .panel .hd small{ display:block; color: var(--muted); margin-top: 4px; }
+
+    .nav{
+      padding: 10px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .nav a{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(6,10,18,.35);
+      text-decoration:none;
+    }
+    .badge{
+      font-size: 11px;
+      color: rgba(234,240,255,.9);
+      padding: 3px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(6,10,18,.35);
+    }
+
+    .content .hero{
+      padding: 18px;
+    }
+    .hero h2{
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: .2px;
+    }
+    .hero p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 75ch;
+    }
+    .meta{
+      display:flex; flex-wrap:wrap; gap: 10px;
+      margin-top: 10px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(6,10,18,.35);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: rgba(234,240,255,.9);
+    }
+
+    .section{
+      margin-top: 14px;
+      padding: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .section h3{
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .section p{ color: var(--muted); margin: 0 0 10px; }
+
+    .card{
+      background: rgba(15,32,63,.6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-top: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    }
+
+    .steps{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(6,10,18,.25);
+    }
+    .step .k{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(234,240,255,.85);
+      opacity:.95;
+    }
+    .step .v{
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .step .v strong{ color: var(--text); font-weight: 700; }
+
+    .callout{
+      border: 1px solid var(--line);
+      background: rgba(6,10,18,.35);
+      border-radius: var(--radius);
+      padding: 12px 12px;
+      margin-top: 12px;
+    }
+    .callout.ok{ border-left: 4px solid var(--ok); }
+    .callout.warn{ border-left: 4px solid var(--warn); }
+    .callout.danger{ border-left: 4px solid var(--danger); }
+    .callout b{ color: var(--text); }
+    .callout p{ margin: 6px 0 0; color: var(--muted); }
+
+    .media{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    figure{
+      margin:0;
+      border: 1px solid var(--line);
+      background: rgba(6,10,18,.35);
+      border-radius: var(--radius);
+      padding: 12px;
+      overflow:hidden;
+    }
+    figure img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 12px;
+    }
+    figcaption{
+      margin-top: 10px;
+      color: rgba(184,198,240,.85);
+      font-size: 12px;
+    }
+
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .faq details{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(6,10,18,.25);
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .faq summary{
+      cursor:pointer;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .faq p{
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .footer{
+      margin-top: 18px;
+      padding: 14px 18px;
+      color: rgba(184,198,240,.85);
+      font-size: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    mark{
+      background: rgba(110,168,255,.25);
+      border: 1px solid rgba(110,168,255,.35);
+      color: var(--text);
+      padding: 0 2px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .sidebar{ position: static; }
+      .brand{ min-width: auto; }
+    }
+    @media (max-width: 720px){
+      .actions{ gap: 8px; }
+      .btn{ padding: 10px 10px; }
+      .two{ grid-template-columns: 1fr; }
+      .step{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header class="topbar">
+      <div class="brand" title="Manual do Portal do Vendedor">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Manual do Portal do Vendedor</h1>
+          <p>Consulta de pedidos + download de DANFE, boleto e XML</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="search">
+          <span class="icon">🔎</span>
+          <input id="q" type="search" placeholder="Buscar no manual (ex.: DANFE, boleto, XML, filtro, pedido...)" />
+        </div>
+        <button class="btn" id="btnPrint" title="Imprimir / Salvar em PDF">🖨️ Imprimir</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="hd">
+            <strong>Sumário</strong>
+            <small>Clique para ir direto ao ponto</small>
+          </div>
+          <nav class="nav" aria-label="Sumário">
+            <a href="#visao-geral"><span class="badge">1</span> Visão geral</a>
+            <a href="#acesso-login"><span class="badge">2</span> Acesso e login</a>
+            <a href="#consultar-pedidos"><span class="badge">3</span> Consultar pedidos</a>
+            <a href="#baixar-danfe"><span class="badge">4</span> Baixar DANFE (PDF)</a>
+            <a href="#baixar-boleto"><span class="badge">5</span> Baixar boleto (PDF)</a>
+            <a href="#baixar-xml"><span class="badge">6</span> Baixar XML da NF-e</a>
+            <a href="#status-erros"><span class="badge">7</span> Status e mensagens</a>
+            <a href="#faq"><span class="badge">8</span> Perguntas frequentes</a>
+            <a href="#suporte"><span class="badge">9</span> Suporte</a>
+          </nav>
+        </div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="hd">
+            <strong>Atalhos úteis</strong>
+            <small>Padronize a operação do time</small>
+          </div>
+          <div style="padding:12px 14px 14px; color: var(--muted); font-size:13px">
+            <div class="card" style="margin-top:0">
+              <div><b style="color:var(--text)">CTRL + F</b> no navegador</div>
+              <div>Busca rápida dentro da página.</div>
+            </div>
+            <div class="card">
+              <div><b style="color:var(--text)">Imprimir</b></div>
+              <div>Use o botão 🖨️ para salvar o manual em PDF.</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="panel">
+          <section id="visao-geral" class="hero">
+            <h2>Bem-vindo(a) 👋</h2>
+            <p>
+              Este manual mostra como usar o <b>Portal do Vendedor</b> para <b>consultar pedidos</b> e realizar o download de
+              <b>DANFE (PDF)</b>, <b>Boleto (PDF)</b> e <b>XML da NF-e</b>.
+            </p>
+
+            <div class="meta">
+              <span class="pill">⏱️ Tempo médio: 2–5 min</span>
+              <span class="pill">📌 Público: vendedores / representantes</span>
+              <span class="pill">🧾 Documentos: DANFE, boleto, XML</span>
+              <span class="pill">🔐 Acesso: login e senha</span>
+            </div>
+
+            <div class="callout ok">
+              <b>Dica:</b>
+              <p>Inclua GIFs curtos (3–8s) para cada ação. Eles reduzem muito dúvidas de uso.</p>
+            </div>
+          </section>
+
+          <section id="acesso-login" class="section">
+            <h3>2) Acesso e login</h3>
+            <p>Use seu e-mail/usuário e senha para entrar no portal.</p>
+
+            <div class="steps">
+              <div class="step">
+                <div class="k">Passo 1</div>
+                <div class="v">Acesse o endereço do portal: <strong>https://SEU-DOMINIO-AQUI</strong></div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 2</div>
+                <div class="v">Informe <strong>usuário</strong> e <strong>senha</strong> e clique em <strong>Entrar</strong>.</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 3</div>
+                <div class="v">Após logar, você verá a tela de <strong>Pedidos</strong>.</div>
+              </div>
+            </div>
+
+            <div class="media two">
+              <figure>
+                <!-- Troque o src para o seu GIF -->
+                <img src="assets/gifs/login.gif" alt="GIF demonstrando o login no portal" />
+                <figcaption>Exemplo: login no portal (substitua por seu GIF).</figcaption>
+              </figure>
+              <figure>
+                <img src="assets/img/tela-inicial.png" alt="Tela inicial após login" />
+                <figcaption>Opcional: print da tela inicial (PNG/JPG).</figcaption>
+              </figure>
+            </div>
+
+            <div class="callout warn">
+              <b>Se deu erro de senha:</b>
+              <p>Verifique CAPS LOCK e tente novamente. Se persistir, acione o suporte para redefinição.</p>
+            </div>
+          </section>
+
+          <section id="consultar-pedidos" class="section">
+            <h3>3) Consultar pedidos</h3>
+            <p>Você pode localizar pedidos por número, cliente, data, status, etc. (ajuste conforme seu portal).</p>
+
+            <div class="card">
+              <b>Filtros mais usados</b>
+              <div class="steps">
+                <div class="step">
+                  <div class="k">Número do pedido</div>
+                  <div class="v">Digite o número e clique em <strong>Pesquisar</strong>.</div>
+                </div>
+                <div class="step">
+                  <div class="k">Período</div>
+                  <div class="v">Selecione <strong>data inicial</strong> e <strong>data final</strong> para listar vendas do período.</div>
+                </div>
+                <div class="step">
+                  <div class="k">Status</div>
+                  <div class="v">Filtre por <strong>Faturado</strong> para liberar downloads de NF-e (quando aplicável).</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="media">
+              <figure>
+                <img src="assets/gifs/consulta-pedidos.gif" alt="GIF demonstrando como consultar pedidos" />
+                <figcaption>Exemplo: aplicando filtros e pesquisando pedidos.</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="baixar-danfe" class="section">
+            <h3>4) Baixar DANFE (PDF)</h3>
+            <p>Quando o pedido estiver faturado e com NF-e gerada, o portal libera o download do DANFE.</p>
+
+            <div class="steps">
+              <div class="step">
+                <div class="k">Passo 1</div>
+                <div class="v">Localize o pedido desejado na lista.</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 2</div>
+                <div class="v">Abra os detalhes do pedido (ex.: botão <strong>Ver</strong> / <strong>Detalhes</strong>).</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 3</div>
+                <div class="v">Clique em <strong>Baixar DANFE</strong> para obter o PDF.</div>
+              </div>
+            </div>
+
+            <div class="media">
+              <figure>
+                <img src="assets/gifs/baixar-danfe.gif" alt="GIF demonstrando o download da DANFE em PDF" />
+                <figcaption>Exemplo: download do DANFE (PDF).</figcaption>
+              </figure>
+            </div>
+
+            <div class="callout ok">
+              <b>Dica:</b>
+              <p>Se o PDF abrir no navegador, use o ícone de download do próprio visualizador para salvar.</p>
+            </div>
+          </section>
+
+          <section id="baixar-boleto" class="section">
+            <h3>5) Baixar boleto (PDF)</h3>
+            <p>O boleto estará disponível quando o pedido tiver cobrança gerada (conforme sua regra).</p>
+
+            <div class="steps">
+              <div class="step">
+                <div class="k">Passo 1</div>
+                <div class="v">Entre nos detalhes do pedido.</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 2</div>
+                <div class="v">Clique em <strong>Baixar Boleto</strong>.</div>
+              </div>
+            </div>
+
+            <div class="media">
+              <figure>
+                <img src="assets/gifs/baixar-boleto.gif" alt="GIF demonstrando o download do boleto em PDF" />
+                <figcaption>Exemplo: download do boleto (PDF).</figcaption>
+              </figure>
+            </div>
+
+            <div class="callout warn">
+              <b>Atenção:</b>
+              <p>Alguns navegadores bloqueiam pop-up. Se nada acontecer ao clicar, libere pop-ups para o portal.</p>
+            </div>
+          </section>
+
+          <section id="baixar-xml" class="section">
+            <h3>6) Baixar XML da NF-e</h3>
+            <p>O XML é o arquivo eletrônico da NF-e. Normalmente fica disponível após autorização da SEFAZ.</p>
+
+            <div class="steps">
+              <div class="step">
+                <div class="k">Passo 1</div>
+                <div class="v">No pedido faturado, vá em <strong>Documentos</strong> (ou área equivalente).</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 2</div>
+                <div class="v">Clique em <strong>Baixar XML</strong>.</div>
+              </div>
+              <div class="step">
+                <div class="k">Passo 3</div>
+                <div class="v">Salve o arquivo <strong>.xml</strong> no seu computador.</div>
+              </div>
+            </div>
+
+            <div class="media">
+              <figure>
+                <img src="assets/gifs/baixar-xml.gif" alt="GIF demonstrando o download do XML da NF-e" />
+                <figcaption>Exemplo: download do XML da NF-e.</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section id="status-erros" class="section">
+            <h3>7) Status e mensagens comuns</h3>
+            <p>Algumas situações impedem downloads. Veja as mais comuns (edite conforme sua regra).</p>
+
+            <div class="two">
+              <div class="callout warn">
+                <b>“Documento indisponível”</b>
+                <p>Geralmente o pedido ainda não está faturado, ou a NF-e ainda não foi autorizada.</p>
+              </div>
+              <div class="callout danger">
+                <b>“Acesso negado”</b>
+                <p>Usuário sem permissão, sessão expirada ou tentativa de acessar pedido de outro vendedor.</p>
+              </div>
+            </div>
+
+            <div class="callout ok">
+              <b>Como resolver rápido:</b>
+              <p>Atualize a página, confirme o status do pedido e tente novamente. Se persistir, envie ao suporte o nº do pedido e um print.</p>
+            </div>
+          </section>
+
+          <section id="faq" class="section faq">
+            <h3>8) Perguntas frequentes</h3>
+
+            <details>
+              <summary>Não consigo baixar o PDF. O que fazer?</summary>
+              <p>Verifique bloqueio de pop-ups, tente outro navegador (Chrome/Edge) e confirme se o pedido está faturado.</p>
+            </details>
+
+            <details>
+              <summary>O XML não aparece para download.</summary>
+              <p>Normalmente isso ocorre quando a NF-e ainda não foi autorizada ou o portal ainda não recebeu o retorno do sistema fiscal.</p>
+            </details>
+
+            <details>
+              <summary>Posso baixar todos os documentos de uma vez?</summary>
+              <p>Se o portal tiver botão de “Download em lote”, ele pode estar nos detalhes do pedido ou na lista. (Ajuste conforme sua funcionalidade.)</p>
+            </details>
+          </section>
+
+          <section id="suporte" class="section">
+            <h3>9) Suporte</h3>
+            <p>Se precisar de ajuda, envie estas informações para agilizar o atendimento:</p>
+
+            <div class="card">
+              <ul style="margin:8px 0 0; color: var(--muted);">
+                <li>Número do pedido</li>
+                <li>CNPJ/cliente (se aplicável)</li>
+                <li>Data/hora aproximada do erro</li>
+                <li>Print da tela + mensagem completa</li>
+                <li>Navegador utilizado (Chrome/Edge/Firefox) e versão</li>
+              </ul>
+            </div>
+
+            <div class="callout ok">
+              <b>Contato:</b>
+              <p>📧 suporte@SEU-DOMINIO | ☎️ (XX) XXXX-XXXX | 🕘 Seg–Sex 08:00–18:00</p>
+            </div>
+          </section>
+
+          <div class="footer">
+            Última atualização: <span id="lastUpdate"></span> • © Sua empresa
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Data de atualização (automaticamente pega a data de hoje)
+    document.getElementById("lastUpdate").textContent =
+      new Date().toLocaleDateString("pt-BR");
+
+    // Imprimir / salvar em PDF
+    document.getElementById("btnPrint").addEventListener("click", () => window.print());
+
+    // Busca simples: destaca termos (mark) no conteúdo
+    const input = document.getElementById("q");
+    const root = document.querySelector(".content");
+
+    // Guardar HTML original para restaurar ao limpar busca
+    const originalHTML = root.innerHTML;
+
+    function escapeRegExp(str){
+      return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function highlight(term){
+      if(!term){
+        root.innerHTML = originalHTML;
+        return;
+      }
+
+      const safe = escapeRegExp(term.trim());
+      if(!safe){
+        root.innerHTML = originalHTML;
+        return;
+      }
+
+      // Restaura antes de aplicar novo highlight
+      root.innerHTML = originalHTML;
+
+      // Aplica destaque em textos (evita tags script/style)
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node){
+          const parent = node.parentElement;
+          if(!parent) return NodeFilter.FILTER_REJECT;
+          const tag = parent.tagName.toLowerCase();
+          if(["script","style"].includes(tag)) return NodeFilter.FILTER_REJECT;
+          if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      const nodes = [];
+      while(walker.nextNode()) nodes.push(walker.currentNode);
+
+      const re = new RegExp(`(${safe})`, "ig");
+      nodes.forEach(textNode => {
+        if(!re.test(textNode.nodeValue)) return;
+        const span = document.createElement("span");
+        span.innerHTML = textNode.nodeValue.replace(re, "<mark>$1</mark>");
+        textNode.parentNode.replaceChild(span, textNode);
+      });
+    }
+
+    let t = null;
+    input.addEventListener("input", () => {
+      clearTimeout(t);
+      t = setTimeout(() => highlight(input.value), 180);
+    });
+  </script>
+</body>
+</html>
