@@ -64,7 +64,9 @@
     }
 
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       min-width: 240px;
     }
     .logo{
@@ -278,7 +280,7 @@
       padding: 12px;
       overflow:hidden;
     }
-    figure img{
+    figure img, figure video{
       width:100%;
       height:auto;
       display:block;
@@ -340,6 +342,14 @@
       .two{ grid-template-columns: 1fr; }
       .step{ grid-template-columns: 1fr; }
     }
+
+    /* Impressão: esconde menu lateral e topbar (opcional) */
+    @media print{
+      body{ background:#fff; color:#000; }
+      .topbar, .sidebar{ display:none !important; }
+      .panel{ box-shadow:none; border-color:#ddd; }
+      a{ color:#000; text-decoration:underline; }
+    }
   </style>
 </head>
 
@@ -398,6 +408,10 @@
               <div><b style="color:var(--text)">Imprimir</b></div>
               <div>Use o botão 🖨️ para salvar o manual em PDF.</div>
             </div>
+            <div class="card">
+              <div><b style="color:var(--text)">Vídeos</b></div>
+              <div>Os vídeos ficam em <span style="font-family:var(--mono)">assets/videos/</span>.</div>
+            </div>
           </div>
         </div>
       </aside>
@@ -420,7 +434,7 @@
 
             <div class="callout ok">
               <b>Dica:</b>
-              <p>Inclua GIFs curtos (3–8s) para cada ação. Eles reduzem muito dúvidas de uso.</p>
+              <p>Vídeo (MP4) costuma carregar mais rápido do que GIF e mantém melhor qualidade.</p>
             </div>
           </section>
 
@@ -443,89 +457,81 @@
               </div>
             </div>
 
-            <div class="media two">
-              <figure>
-                <!-- Troque o src para o seu GIF -->
-                <img src="assets/gifs/login.gif" alt="GIF demonstrando o login no portal" />
-                <figcaption>Exemplo: login no portal (substitua por seu GIF).</figcaption>
-              </figure>
-              <figure>
-                <img src="assets/img/tela-inicial.png" alt="Tela inicial após login" />
-                <figcaption>Opcional: print da tela inicial (PNG/JPG).</figcaption>
-              </figure>
-            </div>
-
             <div class="callout warn">
-              <b>Se deu erro de senha:</b>
-              <p>Verifique CAPS LOCK e tente novamente. Se persistir, acione o suporte para redefinição.</p>
+              <b>Para você completar:</b>
+              <p>Envie o vídeo do login para eu inserir aqui (ex.: <span style="font-family:var(--mono)">assets/videos/login.mp4</span>).</p>
             </div>
           </section>
 
           <section id="consultar-pedidos" class="section">
             <h3>3) Consultar pedidos</h3>
-            <p>Você pode localizar pedidos por número, cliente, data, status, etc. (ajuste conforme seu portal).</p>
+            <p>Localize pedidos por número, cliente, data, status etc. (ajuste conforme o seu portal).</p>
 
             <div class="card">
               <b>Filtros mais usados</b>
               <div class="steps">
                 <div class="step">
-                  <div class="k">Número do pedido</div>
-                  <div class="v">Digite o número e clique em <strong>Pesquisar</strong>.</div>
+                  <div class="k">Número</div>
+                  <div class="v">Digite o número do pedido e clique em <strong>Pesquisar</strong>.</div>
                 </div>
                 <div class="step">
                   <div class="k">Período</div>
-                  <div class="v">Selecione <strong>data inicial</strong> e <strong>data final</strong> para listar vendas do período.</div>
+                  <div class="v">Selecione <strong>data inicial</strong> e <strong>data final</strong>.</div>
                 </div>
                 <div class="step">
                   <div class="k">Status</div>
-                  <div class="v">Filtre por <strong>Faturado</strong> para liberar downloads de NF-e (quando aplicável).</div>
+                  <div class="v">Filtre por <strong>Faturado</strong> para liberar downloads (quando aplicável).</div>
                 </div>
               </div>
             </div>
 
-            <div class="media">
-              <figure>
-                <img src="assets/gifs/consulta-pedidos.gif" alt="GIF demonstrando como consultar pedidos" />
-                <figcaption>Exemplo: aplicando filtros e pesquisando pedidos.</figcaption>
-              </figure>
+            <div class="callout warn">
+              <b>Para você completar:</b>
+              <p>Envie o vídeo de consulta para eu inserir aqui (ex.: <span style="font-family:var(--mono)">assets/videos/consulta-pedidos.mp4</span>).</p>
             </div>
           </section>
 
           <section id="baixar-danfe" class="section">
             <h3>4) Baixar DANFE (PDF)</h3>
-            <p>Quando o pedido estiver faturado e com NF-e gerada, o portal libera o download do DANFE.</p>
+            <p>
+              Quando o pedido estiver faturado e com a NF-e autorizada,
+              o portal libera o download do DANFE em PDF.
+            </p>
 
             <div class="steps">
               <div class="step">
                 <div class="k">Passo 1</div>
-                <div class="v">Localize o pedido desejado na lista.</div>
+                <div class="v">Localize o pedido desejado na listagem.</div>
               </div>
               <div class="step">
                 <div class="k">Passo 2</div>
-                <div class="v">Abra os detalhes do pedido (ex.: botão <strong>Ver</strong> / <strong>Detalhes</strong>).</div>
+                <div class="v">Abra os detalhes do pedido (ex.: botão <strong>Detalhes</strong> / <strong>Ver</strong>).</div>
               </div>
               <div class="step">
                 <div class="k">Passo 3</div>
-                <div class="v">Clique em <strong>Baixar DANFE</strong> para obter o PDF.</div>
+                <div class="v">Clique no botão <strong>Baixar DANFE</strong>.</div>
               </div>
             </div>
 
             <div class="media">
               <figure>
-                <img src="assets/gifs/baixar-danfe.gif" alt="GIF demonstrando o download da DANFE em PDF" />
-                <figcaption>Exemplo: download do DANFE (PDF).</figcaption>
+                <video controls autoplay muted loop playsinline preload="metadata">
+                  <source src="assets/videos/baixar-danfe.mp4" type="video/mp4">
+                  Seu navegador não suporta vídeo.
+                </video>
+                <figcaption>Demonstração do download do DANFE (PDF) no Portal do Vendedor.</figcaption>
               </figure>
             </div>
 
             <div class="callout ok">
               <b>Dica:</b>
-              <p>Se o PDF abrir no navegador, use o ícone de download do próprio visualizador para salvar.</p>
+              <p>Se o PDF abrir em nova aba, utilize o ícone de download do navegador para salvar o arquivo.</p>
             </div>
           </section>
 
           <section id="baixar-boleto" class="section">
             <h3>5) Baixar boleto (PDF)</h3>
-            <p>O boleto estará disponível quando o pedido tiver cobrança gerada (conforme sua regra).</p>
+            <p>O boleto fica disponível quando a cobrança é gerada (conforme sua regra).</p>
 
             <div class="steps">
               <div class="step">
@@ -538,11 +544,9 @@
               </div>
             </div>
 
-            <div class="media">
-              <figure>
-                <img src="assets/gifs/baixar-boleto.gif" alt="GIF demonstrando o download do boleto em PDF" />
-                <figcaption>Exemplo: download do boleto (PDF).</figcaption>
-              </figure>
+            <div class="callout warn">
+              <b>Para você completar:</b>
+              <p>Envie o vídeo do boleto para eu inserir aqui (ex.: <span style="font-family:var(--mono)">assets/videos/baixar-boleto.mp4</span>).</p>
             </div>
 
             <div class="callout warn">
@@ -553,7 +557,7 @@
 
           <section id="baixar-xml" class="section">
             <h3>6) Baixar XML da NF-e</h3>
-            <p>O XML é o arquivo eletrônico da NF-e. Normalmente fica disponível após autorização da SEFAZ.</p>
+            <p>O XML é o arquivo eletrônico da NF-e e geralmente fica disponível após autorização da SEFAZ.</p>
 
             <div class="steps">
               <div class="step">
@@ -570,22 +574,20 @@
               </div>
             </div>
 
-            <div class="media">
-              <figure>
-                <img src="assets/gifs/baixar-xml.gif" alt="GIF demonstrando o download do XML da NF-e" />
-                <figcaption>Exemplo: download do XML da NF-e.</figcaption>
-              </figure>
+            <div class="callout warn">
+              <b>Para você completar:</b>
+              <p>Envie o vídeo do XML para eu inserir aqui (ex.: <span style="font-family:var(--mono)">assets/videos/baixar-xml.mp4</span>).</p>
             </div>
           </section>
 
           <section id="status-erros" class="section">
             <h3>7) Status e mensagens comuns</h3>
-            <p>Algumas situações impedem downloads. Veja as mais comuns (edite conforme sua regra).</p>
+            <p>Algumas situações impedem downloads. Veja exemplos (ajuste conforme seu portal).</p>
 
             <div class="two">
               <div class="callout warn">
                 <b>“Documento indisponível”</b>
-                <p>Geralmente o pedido ainda não está faturado, ou a NF-e ainda não foi autorizada.</p>
+                <p>O pedido ainda não está faturado, ou a NF-e ainda não foi autorizada.</p>
               </div>
               <div class="callout danger">
                 <b>“Acesso negado”</b>
@@ -609,18 +611,18 @@
 
             <details>
               <summary>O XML não aparece para download.</summary>
-              <p>Normalmente isso ocorre quando a NF-e ainda não foi autorizada ou o portal ainda não recebeu o retorno do sistema fiscal.</p>
+              <p>Isso pode ocorrer quando a NF-e ainda não foi autorizada ou o portal ainda não recebeu o retorno do sistema fiscal.</p>
             </details>
 
             <details>
               <summary>Posso baixar todos os documentos de uma vez?</summary>
-              <p>Se o portal tiver botão de “Download em lote”, ele pode estar nos detalhes do pedido ou na lista. (Ajuste conforme sua funcionalidade.)</p>
+              <p>Se houver “download em lote”, ele pode estar nos detalhes do pedido ou na listagem (dependendo da sua implementação).</p>
             </details>
           </section>
 
           <section id="suporte" class="section">
             <h3>9) Suporte</h3>
-            <p>Se precisar de ajuda, envie estas informações para agilizar o atendimento:</p>
+            <p>Para agilizar o atendimento, informe:</p>
 
             <div class="card">
               <ul style="margin:8px 0 0; color: var(--muted);">
@@ -647,7 +649,7 @@
   </div>
 
   <script>
-    // Data de atualização (automaticamente pega a data de hoje)
+    // Data de atualização
     document.getElementById("lastUpdate").textContent =
       new Date().toLocaleDateString("pt-BR");
 
