@@ -1,25 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-theme="light">
-<head>
+<html lang="pt-br" data-theme="dark"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal do Distribuidor - Life Sucos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2e7d32;
+            --primary-color: #4caf50;
             --accent-color: #f57c00;
-            --bg-body: #ffffff;
-            --bg-sidebar: #f8f9fa;
-            --bg-card: #ffffff;
-            --text-main: #1a1a1a;
-            --text-muted: #666;
-            --border-color: #e9ecef;
-            --nav-hover: #eef2f3;
-            --nav-active: #e8f5e9;
-        }
-
-        [data-theme="dark"] {
             --bg-body: #0d1117;
             --bg-sidebar: #161b22;
             --bg-card: #1c2128;
@@ -28,7 +16,18 @@
             --border-color: #30363d;
             --nav-hover: #21262d;
             --nav-active: #23863633;
-            --primary-color: #4caf50;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --bg-sidebar: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666;
+            --border-color: #e9ecef;
+            --nav-hover: #eef2f3;
+            --nav-active: #e8f5e9;
+            --primary-color: #2e7d32;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.2s; }
@@ -42,15 +41,10 @@
         }
 
         aside {
-            width: 280px;
-            height: 100vh;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border-color);
-            position: fixed;
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
+            width: 280px; height: 100vh;
+            background: var(--bg-sidebar); border-right: 1px solid var(--border-color);
+            position: fixed; padding: 2rem 1.5rem;
+            display: flex; flex-direction: column; z-index: 1000;
             transition: transform 0.3s ease;
         }
 
@@ -59,12 +53,8 @@
         nav ul { list-style: none; flex-grow: 1; }
         nav li { margin-bottom: 0.5rem; }
         nav a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            display: block;
-            padding: 10px;
-            border-radius: 6px;
+            text-decoration: none; color: var(--text-muted);
+            font-size: 0.95rem; display: block; padding: 10px; border-radius: 6px;
         }
         nav a:hover { background: var(--nav-hover); color: var(--primary-color); }
         nav a.active { background: var(--nav-active); color: var(--primary-color); font-weight: 600; }
@@ -94,7 +84,7 @@
         .step-card {
             background: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .step-list { margin-left: 1.2rem; margin-top: 1rem; }
@@ -138,7 +128,7 @@
         </ul>
     </nav>
     <button class="theme-switch" id="theme-toggle">
-        <i class="fas fa-moon"></i> <span>Mudar Tema</span>
+        <i class="fas fa-sun"></i> <span>Mudar Tema</span>
     </button>
 </aside>
 
@@ -169,10 +159,10 @@
         <div class="step-card">
             <p>Para visualizar e filtrar seus pedidos, primeiro clique em <span class="highlight">Pedido</span> no menu lateral esquerdo. Em seguida, utilize as opções de busca:</p>
             <ul class="step-list">
-                <li><b>Busca Geral:</b> Utilize o campo de busca superior para localizar pedidos por nome do cliente, número da nota ou outros dados em tempo real.</li>
+                <li><b>Busca Geral:</b> Utilize o campo de busca superior para localizar pedidos por nome do cliente ou número da nota em tempo real.</li>
                 <li><b>Filtros Avançados:</b> Ao lado da lupa de pesquisa, clique no botão <span class="highlight">Busca avançada</span> para refinar sua procura por <b>Filial, Status, Data de Emissão ou Data de Inclusão</b>.</li>
                 <li><b>Limpar Pesquisa:</b> Caso um filtro esteja ativo, uma etiqueta aparecerá logo abaixo do campo de busca. Clique no <b>"X"</b> dessa etiqueta para redefinir a visualização.</li>
-                <li><b>Personalização da Tabela:</b> Use o ícone de engrenagem no topo da tabela para escolher quais colunas deseja exibir. Além disso, você pode <b>clicar e arrastar</b> os itens na lista de configuração para alterar a ordem em que as colunas aparecem na sua tela.</li>
+                <li><b>Personalização da Tabela:</b> Use o ícone de engrenagem no topo da tabela para escolher quais colunas deseja exibir. Você pode <b>clicar e arrastar</b> os itens para alterar a ordem das colunas.</li>
             </ul>
         </div>
         <div class="video-container">
@@ -189,7 +179,7 @@
                 <li><i class="fas fa-barcode"></i> <b>BOLETO:</b> Permite o acesso e download do boleto bancário para pagamento.</li>
                 <li><i class="far fa-file-code"></i> <b>XML:</b> Fornece o arquivo XML da NFe para importação fiscal.</li>
                 <li><b>Como baixar:</b> Ao clicar em qualquer ícone, uma janela abrirá. Clique no botão azul <span class="highlight">Download</span> para salvar no seu computador.</li>
-                <li><b>Estrutura do Arquivo:</b> Para facilitar a organização, os nomes dos arquivos são gerados automaticamente seguindo o padrão: <br> 
+                <li><b>Estrutura do Arquivo:</b> Os nomes dos arquivos seguem o padrão: <br> 
                     <span class="highlight">[FILIAL]_[NUMERO_NFE]_[TIPO_ARQUIVO]</span>
                     <br><br>
                     <i>Exemplos:</i><br>
@@ -206,28 +196,36 @@
 </main>
 
 <script>
-    // Lógica de Tema
     const themeBtn = document.getElementById("theme-toggle");
-    const currentTheme = localStorage.getItem("theme");
-    if (currentTheme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        themeBtn.querySelector("i").classList.replace("fa-moon", "fa-sun");
-    }
+    const htmlEl = document.documentElement;
+
+    // Inicialização: Se não houver preferência salva, usa Dark
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    htmlEl.setAttribute("data-theme", savedTheme);
+    updateToggleIcon(savedTheme);
 
     themeBtn.addEventListener("click", () => {
-        let theme = document.documentElement.getAttribute("data-theme");
-        if (theme === "light") {
-            document.documentElement.setAttribute("data-theme", "dark");
-            localStorage.setItem("theme", "dark");
-            themeBtn.querySelector("i").classList.replace("fa-moon", "fa-sun");
-        } else {
-            document.documentElement.setAttribute("data-theme", "light");
-            localStorage.setItem("theme", "light");
-            themeBtn.querySelector("i").classList.replace("fa-sun", "fa-moon");
-        }
+        const currentTheme = htmlEl.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        
+        htmlEl.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateToggleIcon(newTheme);
     });
 
-    // Menu Mobile
+    function updateToggleIcon(theme) {
+        const icon = themeBtn.querySelector("i");
+        const text = themeBtn.querySelector("span");
+        if (theme === "dark") {
+            icon.classList.replace("fa-moon", "fa-sun");
+            text.innerText = "Modo Claro";
+        } else {
+            icon.classList.replace("fa-sun", "fa-moon");
+            text.innerText = "Modo Escuro";
+        }
+    }
+
+    // Menu Mobile e Scroll Spy
     const menuBtn = document.getElementById("menu-btn");
     const sidebar = document.getElementById("sidebar");
     const navLinks = document.querySelectorAll(".nav-link");
@@ -235,7 +233,6 @@
     menuBtn.addEventListener("click", () => sidebar.classList.toggle("active"));
     navLinks.forEach(link => link.addEventListener("click", () => sidebar.classList.remove("active")));
 
-    // Scroll Spy
     window.addEventListener("scroll", () => {
         let current = "";
         document.querySelectorAll("section").forEach(section => {
