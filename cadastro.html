@@ -116,8 +116,18 @@
             background-color: var(--life-orange-hover);
         }
 
-        button:active {
-            transform: scale(0.98);
+        .support-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .support-footer a {
+            color: var(--life-green);
+            text-decoration: none;
         }
 
         .success-screen {
@@ -166,17 +176,22 @@
 
             <button type="submit" id="submitBtn">Enviar Solicitação</button>
         </form>
+
+        <div class="support-footer">
+            Caso necessite de auxílio, nossa equipe está à disposição:<br>
+            <a href="https://wa.me/5516997748500" target="_blank">(16) 99774-8500</a> | 
+            <a href="mailto:faturamento@lifesucos.com.br">faturamento@lifesucos.com.br</a>
+        </div>
     </div>
 
     <div id="successSection" class="success-screen">
         <div class="success-icon">✓</div>
         <h2 style="color: var(--life-green);">Solicitação Enviada!</h2>
-        <p class="subtitle">Recebemos seus dados com sucesso. Verificaremos as informações e entraremos em contato com suas credenciais.</p>
+        <p class="subtitle">Recebemos seus dados com sucesso. Verificaremos as informações e as credenciais de acesso serão enviadas para o e-mail informado.</p>
     </div>
 </div>
 
 <script>
-    // Substitua pelo seu link gerado no Google Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzxMygtIvoC_E-gAtkeS5GK4BIWZ6Nv9G39T_WQGwfBQq3RXTrjWIHRGXvV3caEGUmGEQ/exec';
     const form = document.getElementById('requestForm');
     const btn = document.getElementById('submitBtn');
